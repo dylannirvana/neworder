@@ -14,8 +14,9 @@ import {
 import Papa from 'papaparse'
 import 'bootstrap/dist/css/bootstrap.min.css'
 import './App.css'
+import '../node_modules/react-grid-layout/css/styles.css'
+import '../node_modules/react-resizable/css/styles.css'
 import GridLayout from 'react-grid-layout'
-// import Gallery from './Gallery'
     
 class Reactgridlayout extends Component {
     constructor(props) {
@@ -68,24 +69,16 @@ class Reactgridlayout extends Component {
                 </Jumbotron>
                 
                 <div className="album">  
-                    <GridLayout  >   
-                        {/* Throws TypeError: Cannot read property '_grid' of undefined         */}
+                    <GridLayout layout={this.renderData} cols={12} rowHeight={30} width={1200} >   
                         {this.renderData()} 
-                    </GridLayout>      
+                    </GridLayout>   
+
+                     {/* <GridLayout className="layout" layout={layout}  cols={12} rowHeight={30} width={1200}>
+                        <div className="grid-item" key="a">a</div>
+                        <div className="grid-item" key="b">b</div>
+                        <div className="grid-item" key="c">c</div>
+                    </GridLayout> */}
                 </div>
-
-
-                {/* <GridLayout className="layout" layout={layout} cols={12} rowHeight={30} width={1200}>
-                    <div className="grid-item" key="a">a</div>
-                    <div className="grid-item" key="b">b</div>
-                    <div className="grid-item" key="c">c</div>
-                </GridLayout> */}
-
-
-
-
-
-
             </div>          
         );
     }
