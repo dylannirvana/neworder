@@ -6,26 +6,24 @@ import {
     CardTitle, 
     Input, 
     InputGroup, 
-    Container, 
+    // Container, 
+    Col,
     Row, 
     Jumbotron 
     } from 'reactstrap';
 import Papa from 'papaparse'
 import 'bootstrap/dist/css/bootstrap.min.css'
 import './App.css'
-
-import Masonry from 'react-masonry-component'
-
-const masonryOptions = {
-    transitionDuration: 0
-};
+import GridLayout from 'react-grid-layout'
+// import Gallery from './Gallery'
     
-class Reactmasonrycomponent extends Component {
+class Reactgridlayout extends Component {
     constructor(props) {
         super(props);
         this.state = {data: [] };  // State holds gridorder / neworder
         this.handleChange = this.handleChange.bind(this);
         this.updateData = this.updateData.bind(this)
+        this.renderData = this.renderData.bind(this)
     }
     
     handleChange(event) {
@@ -45,22 +43,19 @@ class Reactmasonrycomponent extends Component {
     
     renderData() {
         return  this.state.data.length > 1 
-           ? this.state.data.map((item) => (  // Object in return 
-                <Card className="grid-item" key={item.sku}>
-                    <CardImg src={item.image} />
-                    <CardTitle> {item.sku} </CardTitle>
-                    <CardBody> {item.name} </CardBody>
-                </Card>          
-                
-                    // <li className="grid-item">
-                    //     <img src={item.sku} />
-                    // </li>
-           )) 
+           ? this.state.data.map((item) => (  // Here is the data 
+                <Col  className="grid-item" key={item.sku}>
+                    <Card  >
+                        <CardImg src={item.image} />
+                        <CardTitle> {item.sku} </CardTitle>
+                        <CardBody> {item.name} </CardBody>
+                    </Card>  
+                </Col>  
+             )) 
            : null         
     }
 
     render() {
-
         return (
             <div>
                 <Jumbotron>
@@ -71,21 +66,29 @@ class Reactmasonrycomponent extends Component {
                         </InputGroup>
                     </form>
                 </Jumbotron>
-                <h3>react-masonry-component</h3>
+                
                 <div className="album">  
-                    <Masonry
-                        className={'grid'} // default ''
-                        elementType={'div'} // default 'div'
-                        options={masonryOptions} // default {}
-                        disableImagesLoaded={false} // default false
-                        updateOnEachImageLoad={false} // default false and works only if disableImagesLoaded is false
-                    >
-                        {this.renderData}
-                    </Masonry>
+                    <GridLayout  >   
+                        {/* Throws TypeError: Cannot read property '_grid' of undefined         */}
+                        {this.renderData()} 
+                    </GridLayout>      
                 </div>
+
+
+                {/* <GridLayout className="layout" layout={layout} cols={12} rowHeight={30} width={1200}>
+                    <div className="grid-item" key="a">a</div>
+                    <div className="grid-item" key="b">b</div>
+                    <div className="grid-item" key="c">c</div>
+                </GridLayout> */}
+
+
+
+
+
+
             </div>          
         );
     }
 } // END
 
-export default Reactmasonrycomponent
+export default Reactgridlayout
