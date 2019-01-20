@@ -120,10 +120,14 @@ body { font-family: sans-serif; }
 /* CSS Grid */
 
 .grid {
-  display: grid;
-  grid-template-columns: 33%;
+  /* display: grid;
+  grid-template-columns: repeat(3, 20px [col-start]); */
 }
 
 .grid-item {
 
+}
+
+.container {
+  
 }
