@@ -1,10 +1,10 @@
 import React, { Component } from 'react'
 import Papa from 'papaparse'
-import GridLayout from 'react-grid-layout'
 import './App.css'
 
-// THIS ONLY ADDS STRML ON LINE 58 ==== items are vertical unaffected by css. Layout in props and state do not match
     
+// THIS IS JUST THE CSS GRID WITHOUT STRML
+
 class Grid extends Component {
 
     constructor(props) {
@@ -30,7 +30,7 @@ class Grid extends Component {
         this.setState({data}) // {data:data} 
     }
     
-    renderData() {    
+    renderData(props) {    
         return  this.state.data.length > 1 
            ? this.state.data.map((item) => (  
             <div className="react-grid-item grid-item" key={item.sku}  >
@@ -55,9 +55,9 @@ class Grid extends Component {
                 
                 <div className="album">  
                     <div className="container" >                   
-                        <GridLayout className="react-grid-layout grid"  width={1000} >                           
+                        <div className="react-grid-layout grid"  width={1000} >                           
                             {this.renderData()} 
-                        </GridLayout>   
+                        </div>   
                     </div>
                    
                 </div>
