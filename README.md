@@ -1,61 +1,43 @@
-This project was bootstrapped with [Create React App](https://github.com/facebook/create-react-app).
 
-## Available Scripts
+## GO App - a product grid order application
 
-In the project directory, you can run:
+Grid Order Application tool allows a company to use its taxonomies to control the order of product display. Rather than manipulating a predetermined numerical grid order, and not requiring the user to deal with thousands of products at once, they can focus on the taxonomy they are already familiar with. And work only with catagories that concern them at the time.
 
-### `npm start`
+### Philosophy
+Agile. Declarative. Decoupled. 
+1. Easy draggability
+2. Conveniently filter and sort
+3. CSV in, CSV out
 
-Runs the app in the development mode.<br>
-Open [http://localhost:3000](http://localhost:3000) to view it in the browser.
+Looking from the top, it takes a CSV delta, parses to JSON. That will be asserted in the UI, courtesy of _react-grid-layout_ and reordered. The data object will then be parsed back to CSV and sent to a unique column in Magento called _neworder_. Pseudocode: `if (neworder) ? neworder : gridorder`. 
 
-The page will reload if you make edits.<br>
-You will also see any lint errors in the console.
+### TODO: 
 
-## TODO:
+Using STRML react-grid-layout (like Desandro's Packery but for React) I am having trouble getting the grid to form. In React Developer Tools, the parent has a prop called _layout_. The data object is in state. react-grid-layout is populating w,h,w,y values by advancing only _y_, hence all the items are vertically sorted and not forming a grid. 
 
-App.js basically holds the layout. ProductFeed input passes event.target to the uploadHandler, parses the CSV into JSON. _item_ is the array object that needs to be  rendered in Bootstrap Grid and interated through, and accessible to Packery <br>
+His code is in BasicLayout.js. Mine in App.js
 
-Props and state needs to be added to do the following. Please refer to Issue #38. <br>
+#### Methodology
+In index.js put in App.js to see the data run. (You will have to upload a CSV). Replace that with BasicLayout.js to see the Basic Layout. Be sure to take note of "layout" in props (React Dev Tools).
 
-1. Render items object from uploadHandler in Grid 
-2. Iterate over object in Bootstrap .row .col-md-4 
-3. Make sure that Packery and Draggabilly have access to .grid .grid-item 
+CSS Grid or other interventions do not override this. Simple answer. Don't yet know what it is.
 
-## Learn More
+### STRML Packery-like for React
+https://github.com/STRML/react-grid-layout  
+There are a number of similars available 
 
-You can learn more in the [Create React App documentation](https://facebook.github.io/create-react-app/docs/getting-started).
+### The issue on Stack Overflow 
+https://stackoverflow.com/questions/54348311/how-to-pass-array-object-into-react-grid-layout-items-show-up-vertically-and-do 
 
-To learn React, check out the [React documentation](https://reactjs.org/).
+### GitHub repo for this project
+https://github.com/dylannirvana/neworder 
 
-## Regarding Packery
+### App running on Heroku
+https://neworder.herokuapp.com/ 
 
-### David Desandro
-This approach requires React with jQuery via lifecycles https://reactjs.org/docs/integrating-with-other-libraries.html 
-
-- https://draggabilly.desandro.com/  the original draggabilly
-- https://packery.metafizzy.co/draggable.html  original packers draggable
-- https://masonry.desandro.com/  original masonry 
-
-### React Packery
-This presents a TypeError. Rewrite component to refer to a fn rather than call it
-
-- https://www.npmjs.com/package/react-packery-component  react-packers-component
-- https://github.com/mzabriskie/react-draggable/  react-draggable
-- https://www.npmjs.com/package/react-drag  react-drag
-- https://www.npmjs.com/package/react-masonry-component  react-masonry-component
-- 
-- 
-
-### React DnD
-Too verbose
-- https://medium.com/@dan_abramov/the-future-of-drag-and-drop-apis-249dfea7a15f  Dan Abramov
-- http://react-dnd.github.io/react-dnd/about  react DnD 
-- 
-
-### Chris Coyier
-Not verbose enough
-- https://css-tricks.com/draggable-elements-push-others-way/  CSS tricks 
+### Made with Create React App
+https://www.npmjs.com/package/create-react-app 
+npx i create-react-app projectName
+npm start 
 
 
-## Getting Support

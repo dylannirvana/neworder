@@ -2,17 +2,15 @@ import React, { Component } from 'react'
 import Papa from 'papaparse'
 import GridLayout from 'react-grid-layout'
 import './App.css'
-
-// THIS ONLY ADDS STRML ON LINE 58 ==== items are vertical unaffected by css. Layout in props and state do not match
     
-class Grid extends Component {
+class App extends Component {
 
     constructor(props) {
         super(props);
         this.state = {data: [] };  // State holds gridorder / neworder
         this.handleChange = this.handleChange.bind(this);
         this.updateData = this.updateData.bind(this)
-        this.renderData = this.renderData.bind(this)
+        // this.renderData = this.renderData.bind(this)
     }
 
     handleChange(event) {
@@ -22,26 +20,28 @@ class Grid extends Component {
             header: true,
             complete: this.updateData
         })
-    } // END
+    } // END   
 
     updateData(results) {
         const data = results.data
         console.log(data)
         this.setState({data}) // {data:data} 
     }
-    
-    renderData() {    
+        
+    renderData() {  
         return  this.state.data.length > 1 
-           ? this.state.data.map((item) => (  
-            <div className="react-grid-item grid-item" key={item.sku}  >
-                <img src={item.image} alt="product" />
-            </div>  
-             )) 
+           ?    this.state.data.map((item) => (  // Maps data but not x,y,w,h 
+                    <div className="react-grid-item grid-item" key={item.sku}  >
+                        <img src={item.image} alt="product" />
+                    </div>  
+                )) 
            : null         
-    }
+    } // END 
 
     render() {     
-        console.log("here is my " + this.state) 
+        console.log("here is my " + this.state) // undefined
+        // const layout = {i: 0, x: 0, y: 0, w: 0, h: 0} // ?
+
         return (
             <div>
                 <div>
@@ -54,18 +54,20 @@ class Grid extends Component {
                 </div>
                 
                 <div className="album">  
-                    <div className="container" >                   
-                        <GridLayout className="react-grid-layout grid"  width={1000} >                           
+                    <div className="container" >  
+
+                        <GridLayout cols={3} className="react-grid-layout grid" width={1000}      >   
                             {this.renderData()} 
                         </GridLayout>   
-                    </div>
-                   
+                        
+                    </div>                 
                 </div>
             </div>          
         );
     }
 } // END
 
-export default Grid
+export default App
 
 
+// w={1} h={1} x={1} y={1} this doesn't make it into parents props layout but defaults somehow to vertical stacking
