@@ -29,9 +29,10 @@ class App extends Component {
     }
         
     renderData() {  
-        return  this.state.data.length > 1 
-           ?    this.state.data.map((item) => (  // Maps data but not x,y,w,h 
-                    <div className="react-grid-item grid-item" key={item.sku}  >
+        return  this.state.data.length > 1  // checks I have the array object
+           ?    this.state.data.map((item) => (  // maps data but not x,y,w,h 
+                    // this is the child
+                    <div className="react-grid-item grid-item" key={item.sku} > 
                         <img src={item.image} alt="product" />
                     </div>  
                 )) 
@@ -39,28 +40,16 @@ class App extends Component {
     } // END 
 
     render() {     
-        console.log("here is my " + this.state) // undefined
-        // const layout = {i: 0, x: 0, y: 0, w: 0, h: 0} // ?
-
         return (
-            <div>
-                <div>
-                    <form >
-                        <div>
-                            Load up a file here:
-                            <input type="file" onChange={this.handleChange} />
-                        </div>
-                    </form>
-                </div>
-                
-                <div className="album">  
-                    <div className="container" >  
-
-                        <GridLayout cols={12} rowHeight={300} className="react-grid-layout grid" width={1200}      >   
-                            {this.renderData()} 
-                        </GridLayout>   
-                        
-                    </div>                 
+            <div> 
+                <form >
+                    <input type="file" onChange={this.handleChange} />
+                </form>            
+                <div className="album container">  
+                    {/* this is the parent. and passing default xywh values doesnt associate with props > layout */}
+                    <GridLayout cols={12} rowHeight={300} className="react-grid-layout grid" width={1200}      >   
+                        {this.renderData()} 
+                    </GridLayout>   
                 </div>
             </div>          
         );
@@ -70,4 +59,3 @@ class App extends Component {
 export default App
 
 
-// w={1} h={1} x={1} y={1} this doesn't make it into parents props layout but defaults somehow to vertical stacking
