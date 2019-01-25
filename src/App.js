@@ -56,7 +56,7 @@ class App extends Component {
                 <div className="album">  
                     <div className="container" >  
 
-                        <GridLayout cols={3} className="react-grid-layout grid" width={1000}      >   
+                        <GridLayout cols={12} rowHeight={300} className="react-grid-layout grid" width={1200}      >   
                             {this.renderData()} 
                         </GridLayout>   
                         

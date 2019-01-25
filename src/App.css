@@ -132,10 +132,19 @@ body { font-family: sans-serif; }
 .grid-item {
 
 }
-.react-grid-layout, .container {
-  display: grid !important;
-  grid-template-columns: repeat(3, 1fr) !important;
-  grid-gap: 4px;
+
+.container {
+  width: 1400px;
+  background-color: azure;
+  /* display: flex;
+  justify-content: center;
+  align-items: flex-start; */
+}
+
+.react-grid-layout {
+  /* display: grid !important; */
+  /* grid-template-columns: repeat(3, 1fr) !important;
+  grid-gap: 4px; */
 }
 
 .react-grid-item {
