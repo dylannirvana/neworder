@@ -11,7 +11,7 @@ Agile. Declarative. Decoupled.
 
 Looking from the top, it takes a CSV delta, parses to JSON. That will be asserted in the UI, courtesy of _react-grid-layout_ and reordered. The data object will then be parsed back to CSV and sent to a unique column in Magento called _neworder_. Pseudocode: `if (neworder) ? neworder : gridorder`. 
 
-### TODO: 
+### TODO: form the grid with the data objects
 
 Using STRML react-grid-layout (like Desandro's Packery but for React) I am having trouble getting the grid to form. In React Developer Tools, the parent has a prop called _layout_. The data object is in state. react-grid-layout is populating w,h,w,y values by advancing only _y_, hence all the items are vertically sorted and not forming a grid. 
 
