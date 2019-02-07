@@ -23,12 +23,21 @@ import '../node_modules/react-grid-layout/css/styles.css'
 import '../node_modules/react-resizable/css/styles.css'
 import './App.css'
 
+// STRML
+// const originalLayout = getFromLS("layout") || [];
+
+//STRML
 class App extends Component {
+    // static defaultProps = {
+    //     onLayoutChange: function() {}
+    // }
+
     constructor(props) {
         super(props);
         this.state = {
             data: [],
-            isOpen: false 
+            isOpen: false,
+            // export: [] 
         };  
 
         this.toggle = this.toggle.bind(this);
@@ -72,20 +81,47 @@ class App extends Component {
                        </div>
                     //    layout = this.state.data // something like this
                     //     this.setState(layout) // setState somewhere here
+                // ok so here is the object getting mapped out to the ui. when it reforms 
+                // is there a setState that holds the new object?
+
                    ))
               : null
     } // END
 
-    // componentDidUpdate() {
-    //     // const layout = this.renderData()
-    //     // const layout = this.state.data
-    //     // console.log(layout)
-    //     // this.setState(layout) // No!
-    //     // 
+    // handleClick(event) {
+    //     // const neworder = event.target.data
+    //     // Papa.unparse(neworder, {
+    //     //     // passes csv to outputData
+    //     //     complete: this.outputData
+    //     // })
+    // }   
+
+    componentDidUpdate() {
+        // click handler passes to unparse
+
+    }
+
+    // outputData(props) {
+    //     console.log(results)
     // }
 
     render() {
-        
+
+        // NOTE: THIS IS THE EXPORT FUNCTION
+        // when ui updates set new data object to state
+        // this.setState({data}) 
+        console.log("from render " +  this.export)
+
+        // console.log(this.state.data) // re-renders but needs new index
+
+        // pass data object to Papa.unparse()
+
+        let willExport = this.state.data
+        console.log("will export " + willExport)
+
+
+        // END  
+
         return (
             <div>
                 <Navbar color="dark" dark expand="md">
@@ -127,9 +163,10 @@ class App extends Component {
                 </Jumbotron>
 
                 <Container className="album ">
-                <div className="note" > NOTE: Please drag tiles from the text, not the image </div>
+                    <div className="note" > BUG: Drag tiles from text, not image </div>
+                    <div className="note" > BUG: Drag order will be changed </div>
 
-                    <GridLayout cols={3} margin={[120, 20]} rowHeight={300} className="react-grid-layout grid" width={1200}      >
+                    <GridLayout cols={3} margin={[120, 20]} rowHeight={300} className="react-grid-layout grid" width={1200} >
                         {this.renderData()}
                     </GridLayout>
 
@@ -139,7 +176,8 @@ class App extends Component {
                     <Collapse isOpen={this.state.isOpen} navbar>
                         <Nav className="ml-auto" navbar>
                         <NavItem>
-                            <Button color="secondary" size="sm">Export CSV</Button>
+                            <div className="note" > NOTE: The export function is under construction </div>
+                            <Button onClick={this.handleClick} color="secondary" size="sm">Export CSV</Button>
                         </NavItem>
                        
                         </Nav>

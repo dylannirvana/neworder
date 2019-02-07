@@ -159,4 +159,6 @@
     border: 1px solid black;
   }
 
-  
+  .note {
+    color: purple;
+  }
