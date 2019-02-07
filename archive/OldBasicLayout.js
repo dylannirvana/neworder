@@ -3,14 +3,12 @@ import _ from "lodash";
 import RGL, { WidthProvider } from "react-grid-layout";
 import './App.css'
 
-// This is react-grid-layout. Pass in my data?
-
 const ReactGridLayout = WidthProvider(RGL);
 
-class BasicLayout extends React.PureComponent {
+class OldBasicLayout extends React.PureComponent {
   static defaultProps = {
     className: "layout",
-    items: 9,
+    items: 20,
     rowHeight: 30,
     onLayoutChange: function() {},
     cols: 12
@@ -18,7 +16,6 @@ class BasicLayout extends React.PureComponent {
 
   constructor(props) {
     super(props);
-
     const layout = this.generateLayout();
     this.state = { layout };
   }
@@ -35,7 +32,7 @@ class BasicLayout extends React.PureComponent {
 
   generateLayout() {
     const p = this.props;
-    return _.map(new Array(p.items), function(item, i) {     // Where do I pass in my array object?
+    return _.map(new Array(p.items), function(item, i) {     
       const y = _.result(p, "y") || Math.ceil(Math.random() * 4) + 1;
       return {
         x: (i * 2) % 12,
@@ -64,5 +61,5 @@ class BasicLayout extends React.PureComponent {
   }
 }
 
-export default BasicLayout;
+export default OldBasicLayout;
 

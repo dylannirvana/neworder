@@ -1,156 +1,162 @@
-.App {
-  text-align: center;
-}
-
-.App-logo {
-  animation: App-logo-spin infinite 20s linear;
-  height: 40vmin;
-}
-
-.App-header {
-  background-color: #282c34;
-  min-height: 100vh;
-  display: flex;
-  flex-direction: column;
-  align-items: center;
-  justify-content: center;
-  font-size: calc(10px + 2vmin);
-  color: white;
-}
-
-.App-link {
-  color: #61dafb;
-}
-
-@keyframes App-logo-spin {
-  from {
-    transform: rotate(0deg);
+/* .App {
+    text-align: center;
   }
-  to {
-    transform: rotate(360deg);
+  
+  .App-logo {
+    animation: App-logo-spin infinite 20s linear;
+    height: 40vmin;
   }
-}
+  
+  .App-header {
+    background-color: #282c34;
+    min-height: 100vh;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    justify-content: center;
+    font-size: calc(10px + 2vmin);
+    color: white;
+  }
+  
+  .App-link {
+    color: #61dafb;
+  }
+  
+  @keyframes App-logo-spin {
+    from {
+      transform: rotate(0deg);
+    }
+    to {
+      transform: rotate(360deg);
+    }
+  } */
+  
+  /* ALBUM */
+  
+  /* .card {
+    width: 240px;
+  } */
+   /* ================================== */
+  
+  /* 1. PACKERY IMPLEMENTATION */
+  /* * { box-sizing: border-box; } 
+  
+  body { font-family: sans-serif; } */
+  
+  /* ---- grid ---- */
+  
+  /* .grid {
+    background: #DDD;
+    max-width: 1200px;
+  } */
+  
+  /* clear fix */
+  /* .grid:after {
+    content: '';
+    display: block;
+    clear: both;
+  } */
+  
+  /* ---- .grid-item ---- */
+  
+  /* .grid-item {
+    float: left !important;
+    width: 240px !important;
+    height: 300px;
+    background: #C09;
+    border: 2px solid hsla(0, 0%, 0%, 0.5);
+  
+    display: grid !important;
+    grid-template-columns: repeat(4, 1fr);
+    grid-gap: 10px;
+  } */
+  
+  .grid-item img {
+    max-width: 200px;
+    height: auto;
+    z-index: -1;
+  }
+  
+  /* .grid-item--width2 { width: 200px; }
+  .grid-item--height2 { height: 200px; } */
+  
+  /* .grid-item:hover {
+    border-color: hsla(0, 0%, 100%, 0.5);
+    cursor: move;
+  } */
+  
+  /* .grid-item.is-dragging,
+  .grid-item.is-positioning-post-drag {
+    background: #C90;
+    z-index: 2;
+  } */
+  
+  /* .packery-drop-placeholder {
+    outline: 3px dashed hsla(0, 0%, 0%, 0.5);
+    outline-offset: -6px;
+    -webkit-transition: -webkit-transform 0.2s;
+            transition: transform 0.2s;
+  } */
+  
+  /* END */
+  
+  /* .react-draggable {
+    float: left;
+    width: 240px;
+    height: 300px;
+    background: #C09;
+    border: 2px solid hsla(0, 0%, 0%, 0.5);
+  } */
+  
+  /* .react-draggable--width2 { width: 200px; }
+  .react-draggable--height2 { height: 200px; } */
+  
+  .react-draggable:hover {
+    border: 1px solid purple;
+    cursor: move;
+  }
+  
+  .react-draggable.is-dragging,
+  .react-draggable.is-positioning-post-drag {
+    background: #C90;
+    z-index: 2;
+  }
+  
+  /* CSS Grid */
+  
+  /* .grid {
+    display: grid;
+    grid-template-columns: repeat(3, 20px [col-start]);
+    justify-content: center;
+  } */
+  
+  /* .grid-item {
+    display: inline !important;
+  } */
+  
+  /* .container {
+    width: 1400px;
+    background-color: blue;
+    display: flex;
+    justify-content: center;
+    align-items: flex-start;
+    height: 100%;
+  } */
+  
+  /* .react-grid-layout {
+    display: grid !important; 
+    display: inline !important;
+    grid-template-columns: repeat(3, 1fr) !important;
+    grid-gap: 4px;
+  } */
+  
+  .react-grid-item {
+    height: 300px;
+    /* width: 240px; */
+    text-align: center;
+    padding: 4px;
+    background-color: #ffffff;
+    border: 1px solid black;
+  }
 
-/* ALBUM */
-
-.card {
-  width: 240px;
-}
- /* ================================== */
-
-/* 1. PACKERY IMPLEMENTATION */
-* { box-sizing: border-box; } 
-
-body { font-family: sans-serif; }
-
-/* ---- grid ---- */
-
-.grid {
-  background: #DDD;
-  max-width: 1200px;
-}
-
-/* clear fix */
-.grid:after {
-  content: '';
-  display: block;
-  clear: both;
-}
-
-/* ---- .grid-item ---- */
-
-.grid-item {
-  float: left !important;
-  width: 240px;
-  height: 300px;
-  background: #C09;
-  border: 2px solid hsla(0, 0%, 0%, 0.5);
-
-  display: grid !important;
-  grid-template-columns: repeat(4, 1fr);
-  grid-gap: 10px;
-}
-
-.grid-item img {
-  max-width: 200px;
-  height: auto;
-}
-
-.grid-item--width2 { width: 200px; }
-.grid-item--height2 { height: 200px; }
-
-.grid-item:hover {
-  border-color: hsla(0, 0%, 100%, 0.5);
-  cursor: move;
-}
-
-.grid-item.is-dragging,
-.grid-item.is-positioning-post-drag {
-  background: #C90;
-  z-index: 2;
-}
-
-.packery-drop-placeholder {
-  outline: 3px dashed hsla(0, 0%, 0%, 0.5);
-  outline-offset: -6px;
-  -webkit-transition: -webkit-transform 0.2s;
-          transition: transform 0.2s;
-}
-
-/* END */
-
-.react-draggable {
-  float: left;
-  width: 240px;
-  height: 300px;
-  background: #C09;
-  border: 2px solid hsla(0, 0%, 0%, 0.5);
-}
-
-.react-draggable--width2 { width: 200px; }
-.react-draggable--height2 { height: 200px; }
-
-.react-draggable:hover {
-  border-color: hsla(0, 0%, 100%, 0.5);
-  cursor: move;
-}
-
-.react-draggable.is-dragging,
-.react-draggable.is-positioning-post-drag {
-  background: #C90;
-  z-index: 2;
-}
-
-/* CSS Grid */
-
-.grid {
-  /* display: grid;
-  grid-template-columns: repeat(3, 20px [col-start]); */
-  /* justify-content: center; */
-}
-
-.grid-item {
-
-}
-
-.container {
-  width: 1400px;
-  background-color: azure;
-  /* display: flex;
-  justify-content: center;
-  align-items: flex-start; */
-}
-
-.react-grid-layout {
-  /* display: grid !important; */
-  /* grid-template-columns: repeat(3, 1fr) !important;
-  grid-gap: 4px; */
-}
-
-.react-grid-item {
-  height: 300px;
-  width: 240px;
-  text-align: center;
-  padding: 4px;
-  background-color: pink;
-}
+  

@@ -1,6 +1,7 @@
 import React, { Component } from 'react'
 import Papa from 'papaparse'
 import './App.css'
+import GridLayout from 'react-grid-layout'
 
     
 // THIS IS JUST THE CSS GRID WITHOUT STRML
@@ -55,9 +56,9 @@ class Grid extends Component {
                 
                 <div className="album">  
                     <div className="container" >                   
-                        <div className="react-grid-layout grid"  width={1000} >                           
+                        <GridLayout className="react-grid-layout grid" cols={3}  width={800} >                           
                             {this.renderData()} 
-                        </div>   
+                        </GridLayout>   
                     </div>
                    
                 </div>
