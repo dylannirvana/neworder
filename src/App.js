@@ -127,6 +127,8 @@ class App extends Component {
                 </Jumbotron>
 
                 <Container className="album ">
+                <div className="note" > NOTE: Please drag tiles from the text, not the image </div>
+
                     <GridLayout cols={3} margin={[120, 20]} rowHeight={300} className="react-grid-layout grid" width={1200}      >
                         {this.renderData()}
                     </GridLayout>
