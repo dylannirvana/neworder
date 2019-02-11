@@ -26,6 +26,10 @@ import './App.css'
 // STRML
 // const originalLayout = getFromLS("layout") || [];
 
+// For this implementation, 
+// REFER TO: https://strml.github.io/react-grid-layout/examples/4-grid-property.html
+// REFER TO: https://strml.github.io/react-grid-layout/examples/7-localstorage.html 
+
 //STRML
 class App extends Component {
     // static defaultProps = {
