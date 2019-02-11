@@ -63,6 +63,7 @@ class App extends Component {
               ?    this.state.data.map((item,index) => (  
                        <div className="react-grid-item grid-item" key={index}  data-grid={{x: index % 3, y: Math.floor(index / 3), w: 1, h: 1}}>
                              <div> {item.name} </div>
+                             <div> {item.gridorder} </div>
                              <div> {item.designer} </div>
                             <img src={item.image} alt="product" />
                             <div> {item.sku} </div>
@@ -80,7 +81,7 @@ class App extends Component {
         //     // passes csv to outputData
         //     complete: this.outputData
         // })
-        
+
     } // END
 
 
@@ -90,9 +91,16 @@ class App extends Component {
 
     // TODO:
     // 0. Please do not refactor the application. It works and I do not want to use STRML's globals
-    // 1. When app re-renders, save new obj to state
-    // 2. On click (export button) pass new layout obj to Papa.unparse
-    // 3. Save returned CSV to disc
+    // 1. When app re-renders, 
+    //         save new object
+    //         [
+    //            {  sku:grid_order },
+    //            {  sku:grid_order },
+    //            {  sku:grid_order },
+    //          ] 
+    //         to state. The object is composed of sku:grid_order key:value pairs
+    // 2. On click (export button), pass new layout obj to Papa.unparse (JSON to CSV)
+    // 3. Save returned CSV to disc. This export only needs sku:grid_order 
 
 
 ///////////////////////////////////////////
