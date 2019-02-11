@@ -100,7 +100,23 @@ class App extends Component {
         // })
     }   
 
-    
+
+
+///////////////////////////////////////////
+
+
+    // TODO:
+    // 0. Please do not refactor the application. It works and I do not want to use STRML's globals
+    // 1. When app re-renders, save new obj to state
+    // 2. On click (export button) pass new layout obj to Papa.unparse
+    // 3. Save returned CSV to disc
+
+
+///////////////////////////////////////////
+
+
+
+
 
     handleLayoutChange(layout) {
         // const keys = Object.keys(layout)
