@@ -1,0 +1,266 @@
+import React, { Component } from "react";
+import Papa from "papaparse";
+import GridLayout from "react-grid-layout";
+import _ from "lodash";
+
+import {
+  Jumbotron,
+  Container,
+  Collapse,
+  Navbar,
+  NavbarToggler,
+  NavbarBrand,
+  Nav,
+  NavItem,
+  NavLink,
+  UncontrolledDropdown,
+  DropdownToggle,
+  DropdownMenu,
+  DropdownItem,
+  Button,
+  Input
+} from "reactstrap";
+
+import "../node_modules/react-grid-layout/css/styles.css";
+
+import "../node_modules/react-resizable/css/styles.css";
+
+import "./App.css";
+
+// STRML
+
+// const originalLayout = getFromLS("layout") || [];
+
+//STRML
+
+class App extends Component {
+  // static defaultProps = {
+
+  //     onLayoutChange: function() {}
+
+  // }
+
+  constructor(props) {
+    super(props);
+
+    this.state = {
+      data: [],
+
+      isOpen: false
+
+      // export: []
+    };
+
+    this.toggle = this.toggle.bind(this);
+
+    this.handleChange = this.handleChange.bind(this);
+
+    this.updateData = this.updateData.bind(this);
+
+    this.renderData = this.renderData.bind(this);
+
+    this.loadData();
+  }
+
+  loadData() {
+    Papa.parse("/floor_task.csv", {
+      download: true,
+
+      header: true,
+
+      complete: this.updateData
+    });
+  }
+
+  toggle() {
+    this.setState({
+      isOpen: !this.state.isOpen
+    });
+  }
+
+  handleChange(event) {
+    event.preventDefault();
+
+    const inventory = event.target.files[0];
+
+    Papa.parse(inventory, {
+      header: true,
+
+      complete: this.updateData
+    });
+  } // END
+
+  updateData(results) {
+    const data = results.data;
+
+    console.log(data);
+
+    this.setState({ data }); // {data:data}
+  }
+
+  renderData() {
+    return this.state.data.length > 1
+      ? this.state.data.map((item, index) => (
+          <div className="react-grid-item grid-item" key={index}>
+            <div> {item.name} </div>
+
+            <div> {item.designer} </div>
+
+            {/*<img src={item.image} alt="product" />*/}
+
+            <div> {item.sku} </div>
+
+            <div> {index} </div>
+
+            {/* {console.log(item.sku, index)} */}
+
+            {/* {this.setState(this.state.data)} */}
+          </div>
+
+          //    layout = this.state.data // something like this
+
+          //     this.setState(layout) // setState somewhere here
+
+          // ok so here is the object getting mapped out to the ui. when it reforms
+
+          // is there a setState that holds the new object?
+        ))
+      : null;
+  } // END
+
+  handleClick = event => {
+    console.log("this.newOrder = ", this.newOrder);
+
+    const csv = Papa.unparse(this.newOrder);
+
+    console.log("csv = ", csv);
+  };
+
+  componentDidUpdate() {
+    // click handler passes to unparse
+  }
+
+  onLayoutChange = layout => {
+    this.newOrder = layout.map(li => ({ ...li, pos: li.y * 3 + li.x }));
+
+    this.newOrder = _.sortBy(this.newOrder, "pos").map(li => parseInt(li.i));
+
+    console.log("this.newOrder = ", this.newOrder);
+
+    this.newOrder = this.newOrder.map(i => this.state.data[i]);
+  };
+
+  render() {
+    const { data } = this.state;
+
+    const layout =
+      data &&
+      data.map((item, index) => ({
+        x: index % 3,
+
+        y: Math.floor(index / 3),
+
+        w: 1,
+
+        h: 1,
+
+        i: index.toString()
+      }));
+
+    return (
+      <div>
+        <Navbar color="dark" dark expand="md">
+          <NavbarBrand href="/">GO App - grid order tool</NavbarBrand>
+
+          <NavbarToggler onClick={this.toggle} />
+
+          <Collapse isOpen={this.state.isOpen} navbar>
+            <Nav className="ml-auto" navbar>
+              <NavItem>
+                <NavLink href="/components/">Components</NavLink>
+              </NavItem>
+
+              <NavItem>
+                <NavLink href="https://github.com/reactstrap/reactstrap">
+                  GitHub
+                </NavLink>
+              </NavItem>
+
+              <UncontrolledDropdown nav inNavbar>
+                <DropdownToggle nav caret>
+                  Options
+                </DropdownToggle>
+
+                <DropdownMenu right>
+                  <DropdownItem>Option 1</DropdownItem>
+
+                  <DropdownItem>Option 2</DropdownItem>
+
+                  <DropdownItem divider />
+
+                  <DropdownItem>Reset</DropdownItem>
+                </DropdownMenu>
+              </UncontrolledDropdown>
+            </Nav>
+          </Collapse>
+        </Navbar>
+
+        <Jumbotron>
+          <Container>
+            <h4> Import CSV </h4>
+
+            <Input type="file" onChange={this.handleChange} />
+          </Container>
+        </Jumbotron>
+
+        <Container className="album ">
+          <div className="note"> BUG: Drag tiles from text, not image </div>
+
+          <div className="note"> BUG: Drag order will be changed </div>
+
+          <GridLayout
+            cols={3}
+            margin={[120, 20]}
+            rowHeight={100}
+            className="react-grid-layout grid"
+            width={1200}
+            layout={layout}
+            onLayoutChange={this.onLayoutChange}
+            verticalCompact={true}
+            compactType="horizontal"
+            isResizable={false}
+          >
+            {this.renderData()}
+          </GridLayout>
+
+          <Navbar color="light" light expand="md">
+            {/* <NavbarBrand href="/">GO App - grid order tool</NavbarBrand>
+
+                    <NavbarToggler onClick={this.toggle} /> */}
+
+            <Collapse isOpen={this.state.isOpen} navbar>
+              <Nav className="ml-auto" navbar>
+                <NavItem>
+                  <div className="note">
+                    {" "}
+                    NOTE: The export function is under construction{" "}
+                  </div>
+
+                  <Button
+                    onClick={this.handleClick}
+                    color="secondary"
+                    size="sm"
+                  >
+                    Export CSV
+                  </Button>
+                </NavItem>
+              </Nav>
+            </Collapse>
+          </Navbar>
+        </Container>
+      </div> // END
+    );
+  }
+} // END
+
+export default App;

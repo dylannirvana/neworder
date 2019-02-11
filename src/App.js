@@ -35,7 +35,8 @@ class App extends Component {
     constructor(props) {
         super(props);
         this.state = {
-            data: [],
+            data: [], // load
+            // newdata: [], // change
             isOpen: false,
             // export: [] 
         };  
@@ -63,10 +64,11 @@ class App extends Component {
 
     updateData(results) {
         const data = results.data
-        console.log(data)
+        // console.log(data)
         this.setState({data}) // {data:data}
     }
 
+// load
     renderData() {
            return  this.state.data.length > 1  
               ?    this.state.data.map((item,index) => (  
@@ -78,6 +80,7 @@ class App extends Component {
                             <div> {index} </div>
                             {/* {console.log(item.sku, index)} */}
                             {/* {this.setState(this.state.data)} */}
+
                        </div>
                     //    layout = this.state.data // something like this
                     //     this.setState(layout) // setState somewhere here
@@ -88,13 +91,30 @@ class App extends Component {
               : null
     } // END
 
-    // handleClick(event) {
-    //     // const neworder = event.target.data
-    //     // Papa.unparse(neworder, {
-    //     //     // passes csv to outputData
-    //     //     complete: this.outputData
-    //     // })
-    // }   
+    handleCSV(event) {
+        // console.log(`click handler ${this.state.data}`)
+        // const neworder = event.target.data
+        // Papa.unparse(neworder, {
+        //     // passes csv to outputData
+        //     complete: this.outputData
+        // })
+    }   
+
+    
+
+    handleLayoutChange(layout) {
+        // const keys = Object.keys(layout)
+        // // console.log(`yo baby ${values[0]}`)
+
+        // for (const key of keys) {
+        //     console.log(key)
+        //    }
+        saveToLS("layout", layout)
+        
+
+    } 
+
+    
 
     componentDidUpdate() {
         // click handler passes to unparse
@@ -106,18 +126,18 @@ class App extends Component {
     // }
 
     render() {
-
+        // newdata = this.state.index
         // NOTE: THIS IS THE EXPORT FUNCTION
         // when ui updates set new data object to state
         // this.setState({data}) 
-        console.log("from render " +  this.export)
+        // console.log("from render " +  this.export)
 
         // console.log(this.state.data) // re-renders but needs new index
 
         // pass data object to Papa.unparse()
 
-        let willExport = this.state.data
-        console.log("will export " + willExport)
+        // let willExport = this.state.data
+        // console.log("will export " + willExport)
 
 
         // END  
@@ -155,6 +175,7 @@ class App extends Component {
                         </Nav>
                     </Collapse>
                 </Navbar>
+                
                 <Jumbotron >
                     <Container>
                         <h4> Import CSV </h4>
@@ -166,7 +187,7 @@ class App extends Component {
                     <div className="note" > BUG: Drag tiles from text, not image </div>
                     <div className="note" > BUG: Drag order will be changed </div>
 
-                    <GridLayout cols={3} margin={[120, 20]} rowHeight={300} className="react-grid-layout grid" width={1200} >
+                    <GridLayout onLayoutChange={this.handleLayoutChange} cols={3} margin={[120, 20]} rowHeight={300} className="react-grid-layout grid" width={1200} >
                         {this.renderData()}
                     </GridLayout>
 
@@ -177,7 +198,7 @@ class App extends Component {
                         <Nav className="ml-auto" navbar>
                         <NavItem>
                             <div className="note" > NOTE: The export function is under construction </div>
-                            <Button onClick={this.handleClick} color="secondary" size="sm">Export CSV</Button>
+                            <Button onClick={this.handleCSV} color="secondary" size="sm">Export CSV</Button>
                         </NavItem>
                        
                         </Nav>
@@ -191,5 +212,16 @@ class App extends Component {
 } // END
 
 export default App
+
+function saveToLS(key, value) {
+    if (global.localStorage) {
+      global.localStorage.setItem(
+        "rgl-8",
+        JSON.stringify({
+          [key]: value
+        })
+      );
+    }
+  }
 
 
