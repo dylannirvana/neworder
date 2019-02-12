@@ -71,6 +71,14 @@ class App extends Component {
                 )) 
     } // END
 
+    // TODO:
+    // const layout = this.state.data ??
+    // this.setState({layout}) ???
+    // How do I make it so layout updates and be passed to parser?
+    // Also, the index needs to change on position change
+    // the grid_order, because it is sequential (it forms the layout), should follow this pattern as well
+    // and gets updated as the layout changes
+
     render() {
         return (
             <div>
