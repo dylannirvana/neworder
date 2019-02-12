@@ -27,8 +27,7 @@ class App extends Component {
     constructor(props) {
         super(props);
         this.state = {
-            data: [], // load
-            // newdata: [], // change
+            data: [], // on load
             isOpen: false,
         };  
 
@@ -57,59 +56,20 @@ class App extends Component {
         const data = results.data
         this.setState({data}) // {data:data}
     }
-
-    renderData() {
-           return  this.state.data.length > 1  
-              ?    this.state.data.map((item,index) => (  
-                       <div className="react-grid-item grid-item" key={index}  data-grid={{x: index % 3, y: Math.floor(index / 3), w: 1, h: 1}}>
-                             <div> {item.name} </div>
-                             <div> {item.gridorder} </div>
-                             <div> {item.designer} </div>
-                            <img src={item.image} alt="product" />
-                            <div> {item.sku} </div>
-                            <div> {index} </div>
-                       </div>
-                   ))
-              : null
-    } // END
-
-    handleClick(event) {
-            console.log(`click handler ${this.state.data}`)
-        
-            // const neworder = event.target.data
-        // Papa.unparse(neworder, {
-        //     // passes csv to outputData
-        //     complete: this.outputData
-        // })
-
-    } // END
-
-
-
-///////////////////////////////////////////
-
-
-    // TODO:
-    // 0. Please do not refactor the application. It works and I do not want to use STRML's globals
-    // 1. When app re-renders, 
-    //         save new object
-    //         [
-    //            {  sku:grid_order },
-    //            {  sku:grid_order },
-    //            {  sku:grid_order },
-    //          ] 
-    //         to state. The object is composed of sku:grid_order key:value pairs
-    // 2. On click (export button), pass new layout obj to Papa.unparse (JSON to CSV)
-    // 3. Save returned CSV to disc. This export only needs sku:grid_order 
-
-
-///////////////////////////////////////////
-
     
-
-    componentDidUpdate() {
-        
-    }
+    renderData() {
+        return  this.state.data.map((item,index) => (  
+                    <div className="react-grid-item grid-item" key={item.sku} data-grid={{x: index % 3, y: Math.floor(index / 3), w: 1, h: 1}}>
+                            <div> {item.name} </div>
+                            <div> {item.gridorder} </div>
+                            <div> {item.designer} </div>
+                        <img src={item.image} alt="product" />
+                        <div> {item.sku} </div>
+                        <div> {index} </div>                                                                       
+                    </div>
+                        
+                )) 
+    } // END
 
     render() {
         return (
@@ -157,7 +117,7 @@ class App extends Component {
                     <div className="note" > BUG: Drag tiles from text, not image </div>
                     <div className="note" > BUG: Drag order will be changed </div>
 
-                    <GridLayout onLayoutChange={this.handleLayoutChange} cols={3} margin={[120, 20]} rowHeight={300} className="react-grid-layout grid" width={1200} >
+                    <GridLayout  compactType="horizontal" useCSSTransforms={true} cols={3} margin={[120, 20]} rowHeight={300} className="react-grid-layout grid" width={1200} >
                         {this.renderData()}
                     </GridLayout>
 
