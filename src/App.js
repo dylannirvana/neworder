@@ -64,7 +64,7 @@ class App extends Component {
     renderData() {
         return  this.state.data.length > 1
             ?   this.state.data.map((item,index) => (  
-                    <div className="react-grid-item grid-item" key={index} data-grid={{x: index % 3, y: Math.floor(index / 3), w: 1, h: 1}}>
+                    <div className="react-grid-item grid-item" key={index}>
                         <div> {item.name} </div>
                         <div> {item.gridorder} </div>
                         <div> {item.designer} </div>
@@ -76,20 +76,43 @@ class App extends Component {
             : null
     } // END
 
+    // RERENDER LAYOUT AND CAPTURE NEW INDEX. NEED ENTIRE OBJECT HERE
+    onLayoutChange = (layout) => {
+        this.newOrder = layout.map(li => ({...li, pos:li.y*3 + li.x}))  
+        console.log("neworder is ", this.newOrder)
+        this.newOrder = _.sortBy(this.newOrder, 'pos').map(li => parseInt(li.i))
+        console.log("this.newOrder rerendered = ", this.newOrder)
+        this.newOrder = this.newOrder.map(i => this.state.data[i])
+
+        console.log("with data here ", this.newOrder)
+        console.log("and now for your viewing pleasure, a sku ", this.newOrder[0].sku)
+        this.newOrder = this.newOrder.map(i => this.state.data.sku)
+        console.log("a whole bunch of skus ", this.newOrder)
+
+    }
+
+    // ON CLICK PARSE AND SAVE CSV
     handleClick = (event) => {
-        console.log("this.newOrder = ", this.newOrder)
+        this.newOrder = this.newOrder.map(i => this.state.data.sku[i]) 
+        console.log("from click handler", this.newOrder)       
+
+        // Verify object
+        console.log("this.newOrder from click handler = ", this.newOrder)
+        console.log("gridorder is ", this.newOrder.gridorder)
+
+        // TODO: BEFORE PARSE 
+        // 1. Remove extra fields leaving only { config_sku:grid_order }. This is for the export
+        // 2. Pull out item.gridorder into an array
+        // 3. Re-sort array ascending
+        // 4. Put that data back in column, so that new k-v's are formed according to the sort order
+        // 5. Pass that object to parser
+
+        // PARSE
         const csv = Papa.unparse(this.newOrder) 
-        console.log("csv = ", csv)
+        console.log("csv from parser = ", csv)
         // saveAs(csv)
         var file = new File([csv], "neworder.csv", {type: "text/plain;charset=utf-8"});
         FileSaver.saveAs(file);
-    }
-
-    onLayoutChange = (layout) => {
-        this.newOrder = layout.map(li => ({...li, pos:li.y*3 + li.x}))
-        this.newOrder = _.sortBy(this.newOrder, 'pos').map(li => parseInt(li.i))
-        console.log("this.newOrder crazy but = ", this.newOrder)
-        this.newOrder = this.newOrder.map(i => this.state.data[i])
     }
 
     render() {
@@ -101,6 +124,8 @@ class App extends Component {
             h: 1,
             i: index.toString()
         }))
+
+        // TODO: ALTERNATELY HIDE INPUT AND EXPORT BUTTONS AT TOP
         return (
             <div>
                 <Navbar color="dark" dark expand="md">
