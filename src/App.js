@@ -113,25 +113,8 @@ class App extends Component {
        
     } // END
 
-    // Maybe the easiest way to do it is NOT change the gridorder at all. Remove it! 
-    // It comes in, in ascending numberical order by definition
-    // Simply do not advance it.
-    // So that would be this.state.data.gridorder 
-    // I can even write that as static? 
-    // It is a property of the data once imported
-
-
     // ON CLICK PARSE AND SAVE CSV
     handleClick = (event) => {
-
-        // console.log( "god only knows ", this.state.data.sku)
-   
-        // TODO: BEFORE PARSE 
-        // 1. Remove extra fields leaving only { config_sku:grid_order }. This is for the export
-        // 2. Pull out item.gridorder into an array
-        // 3. Re-sort array ascending
-        // 4. Put that data back in column, so that new k-v's are formed according to the sort order
-        // 5. Pass that object to parser
 
         // PARSE
         const csv = Papa.unparse(this.newOrder) 
