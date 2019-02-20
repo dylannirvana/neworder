@@ -64,10 +64,8 @@ class App extends Component {
         return  this.state.data.length > 1
             ?   this.state.data.map((item,index) => (  
                     <div className="react-grid-item grid-item" key={index}>
-                        {"orig " + console.log(this.gridorder)}
                         <div> {item.name} </div>
                         <div> {item.gridorder} </div> 
-                        <div> {item.designer} </div>
                         <img src={item.image} alt="product" />
                         <div> {item.sku} </div>
                         <div> {index} </div>     
@@ -76,47 +74,21 @@ class App extends Component {
             : null
     } // END
 
-//////////////////////////////////////////////////////
-
-// TODO: I need to get new_sku:old_gridorder
-
-    // RERENDER LAYOUT AND CAPTURE NEW INDEX. NEED ENTIRE OBJECT HERE
     onLayoutChange = (layout) => {
-        // Mutating a lot of data here... 
         this.newOrder = layout.map(li => ({...li, pos:li.y*3 + li.x}))  
-        console.log("layout ", this.newOrder)
-
-        // Can I grab old_gridorder here? This shows actual and new indexes
         this.newOrder = _.sortBy(this.newOrder, 'pos').map(li => parseInt(li.i))
-        console.log("Rerendered. Shows actual index to old index = ", this.newOrder)
 
-         // This passes the NEW grid order separately. But here i already have this
-         this.newGridorder = this.newOrder.map(i => this.state.data[i]['gridorder'])
-         console.log("new grid ", this.newGridorder)
-
-        // this is the only thing i need from new
-         this.newsku = this.newOrder.map(i => this.state.data[i]['sku'])
-         console.log("new skus ", this.newsku)
-
-
-        //  // Somehow ive got to get orig grid OLD GRID 
-        // this.oldOrder = this.state.data.map((item) => (
-        //     {item.gridorder}
-        // ))
-
-
-//////////////////////////////////////////////////////
-
-        // here we are loading the data into it. This is what I am passing to export right now
-        this.newOrder = this.newOrder.map(i => this.state.data[i])
-        console.log("with data here ", this.newOrder)
+        this.newOrder = this.newOrder.map((i, seqno) => ({
+            sku: this.state.data[i].sku,
+            gridorder: this.state.data[seqno].gridorder
+          }));
+       console.log(this.newOrder)
        
     } // END
 
-    // ON CLICK PARSE AND SAVE CSV
     handleClick = (event) => {
 
-        // PARSE
+        // Parse
         const csv = Papa.unparse(this.newOrder) 
         console.log("csv from parser = ", csv)
 
@@ -135,7 +107,6 @@ class App extends Component {
             i: index.toString()
         }))
 
-        // TODO: ALTERNATELY HIDE INPUT AND EXPORT BUTTONS AT TOP
         return (
             <div>
                 <Navbar color="dark" dark expand="md">
@@ -177,8 +148,6 @@ class App extends Component {
 
                     <div className="note" > Export neworder CSV </div>
                             <Button onClick={this.handleClick} color="secondary" size="sm">Export CSV</Button>
-
-
                     </Container>
                 </Jumbotron>
 
