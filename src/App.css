@@ -75,6 +75,13 @@
     max-width: 200px;
     height: auto;
     z-index: -1;
+    
+    /* user-drag: none;  */
+    user-select: none;
+    -moz-user-select: none;
+    -webkit-user-drag: none;
+    -webkit-user-select: none;
+    -ms-user-select: none;
   }
   
   /* .grid-item--width2 { width: 200px; }

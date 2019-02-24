@@ -31,18 +31,18 @@ class App extends Component {
         this.state = {
             data: [], // on load
             isOpen: false,
-        };  
+        }
 
-        this.toggle = this.toggle.bind(this);
-        this.handleChange = this.handleChange.bind(this);
+        this.toggle = this.toggle.bind(this)
+        this.handleChange = this.handleChange.bind(this)
         this.updateData = this.updateData.bind(this)
         this.renderData = this.renderData.bind(this)  
-        this.handleClick = this.handleClick.bind(this)      
+        this.handleClick = this.handleClick.bind(this) 
     }
 
     toggle() {
         this.setState({
-          isOpen: !this.state.isOpen
+          isOpen: !this.state.isOpen,
         });
       }
 
@@ -53,6 +53,8 @@ class App extends Component {
             header: true,
             complete: this.updateData
         })
+        // export button becomes visible
+       
     } // END
 
     updateData(results) {
@@ -65,9 +67,9 @@ class App extends Component {
             ?   this.state.data.map((item,index) => (  
                     <div className="react-grid-item grid-item" key={index}>
                         <div> {item.name} </div>
-                        <div> {item.gridorder} </div> 
+                        <div> {item.grid_order} </div> 
                         <img src={item.image} alt="product" />
-                        <div> {item.sku} </div>
+                        <div> {item.config_sku} </div>
                         <div> {index} </div>     
                     </div>    
                 )) 
@@ -79,8 +81,8 @@ class App extends Component {
         this.newOrder = _.sortBy(this.newOrder, 'pos').map(li => parseInt(li.i))
 
         this.newOrder = this.newOrder.map((i, seqno) => ({
-            sku: this.state.data[i].sku,
-            gridorder: this.state.data[seqno].gridorder
+            config_sku: this.state.data[i].config_sku,
+            grid_order: this.state.data[seqno].grid_order
           }));
        console.log(this.newOrder)
        
@@ -143,16 +145,20 @@ class App extends Component {
                 
                 <Jumbotron >
                     <Container>
-                        <h4> Import CSV </h4>
-                    <Input type="file" onChange={this.handleChange}  />
+                        <div className="import">
+                            <h4> Import CSV </h4>
+                            <Input  type="file" onChange={this.handleChange}  />
+                        </div>
 
-                    <div className="note" > Export neworder CSV </div>
-                            <Button onClick={this.handleClick} color="secondary" size="sm">Export CSV</Button>
+                        <div className="exportButton">
+                            <h4> Export CSV </h4>
+                            <Button  onClick={this.handleClick} color="secondary" size="sm">Export CSV</Button>
+                        </div>
+
                     </Container>
                 </Jumbotron>
 
                 <Container className="album ">
-                    <div className="note" > BUG: Drag tiles from text, not image </div>
 
                     <GridLayout  
                         compactType="horizontal" 
@@ -174,7 +180,6 @@ class App extends Component {
                     <Collapse isOpen={this.state.isOpen} navbar>
                         <Nav className="ml-auto" navbar>
                         <NavItem>
-                            yo
                             {/* <div className="note" > Export neworder CSV </div>
                             <Button onClick={this.handleClick} color="secondary" size="sm">Export CSV</Button> */}
                         </NavItem>
