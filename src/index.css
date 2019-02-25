@@ -1,8 +1,9 @@
+@import url('https://fonts.googleapis.com/css?family=Libre+Baskerville|Montserrat');
+
 body {
   margin: 0;
   padding: 0;
-  font-family: -apple-system, BlinkMacSystemFont, "Segoe UI", "Roboto", "Oxygen",
-    "Ubuntu", "Cantarell", "Fira Sans", "Droid Sans", "Helvetica Neue",
+  font-family: "Helvetica Neue", "Monserrat", "sans-serif"
     sans-serif;
   -webkit-font-smoothing: antialiased;
   -moz-osx-font-smoothing: grayscale;
@@ -16,3 +17,13 @@ code {
 /* .container {
     background-color: burlywood; 
   } */
+  
+
+
+h1,h2,h3,h4,h5,h6 {
+  font-family: 'Libre Baskerville', serif;
+}
+
+p {
+  font-family: 'Montserrat', sans-serif;
+}
