@@ -19,11 +19,18 @@ import {
     DropdownItem,
     Button,
     Input,
+    Card,
+    CardBody,
+    CardImg,
+    CardTitle,
+    CardText,
+    CardSubtitle,
 } from 'reactstrap'
 
 import '../node_modules/react-grid-layout/css/styles.css'
 import '../node_modules/react-resizable/css/styles.css'
 import './App.css'
+import logo from './images/logo.png'
 
 class App extends Component {
     constructor(props) {
@@ -46,7 +53,7 @@ class App extends Component {
     // 1. toggle visibility √
     // 2. column size correx √
     // 3. multiple column variable X
-    // 4. style
+    // 4. style √
     // 5. multiple select
 
     // Be sure to complete documentation and formally present
@@ -90,14 +97,17 @@ class App extends Component {
     renderData() {
         return  this.state.data.length > 1
             ?   this.state.data.map((item,index) => (  
-                    <div className="react-grid-item grid-item" key={index}>
-                        <div className="name"> {item.name} </div>
-                        <div> {item.config_sku} </div>
-                        <img src={item.image} alt="product" />
-                        <div className="small"> {index} </div>     
 
-                       
-                    </div>    
+                        <Card className="react-grid-item grid-item" key={index} >
+                            <CardImg src={item.image} top width="100%" alt="Product" />
+                            <CardBody>
+                                <CardTitle className="name"> {item.name} </CardTitle>
+                                <CardText className="designer" > {item.designer} </CardText>
+                                <CardSubtitle className="sku" > {item.config_sku} </CardSubtitle>
+                                <CardText className="index" > {index} </CardText>
+                                {/* <Button>Button</Button> */}
+                            </CardBody>
+                        </Card>
                 )) 
             : null
     } // END
@@ -130,7 +140,8 @@ class App extends Component {
 
     importButton = () => (
         <div className="import">
-            <h4> Import CSV </h4>                      
+            <h4> GO App </h4> 
+            <p className="summary" >Welcome to the Grid Order Application. Please upload a properly formatted Custom Export from Magento. And reorder the tiles in the UI.</p>                    
             <Input type="file" onChange={this.handleChange}  />
         </div>
     )
@@ -138,7 +149,8 @@ class App extends Component {
     exportButton = () => (
         <div className="exportButton">
             <h4> Export CSV </h4>
-            <Button onClick={this.handleClick} color="secondary" size="sm">New Order</Button>        
+            <p className="summary" >Now that you have the New Order, export the file. And upload it into the Magento Custom Module. This will change the grid order.</p>
+            <Button onClick={this.handleClick} color="secondary" size="sm">Save New Order</Button>        
         </div>
     )
 
@@ -156,15 +168,17 @@ class App extends Component {
 
         return (
             <div>
-                <Navbar color="dark" dark expand="md">
-                    <NavbarBrand href="/">GO App - grid order tool</NavbarBrand>
+                <Navbar color="light" light expand="md">
+                    <NavbarBrand className="logo" href="/"> 
+                        <img src={logo} alt="logo" />
+                    </NavbarBrand>
                     <NavbarToggler onClick={this.toggle} />
                     <Collapse isOpen={this.state.isOpen} navbar>
                         <Nav className="ml-auto" navbar>
                         <NavItem>
                         </NavItem>
                         <NavItem>
-                        <NavLink target="_blank" href="https://github.com/dylannirvana/neworder/">GitHub</NavLink>
+                        {/* <NavLink target="_blank" href="https://github.com/dylannirvana/neworder/">GO App</NavLink> */}
                         </NavItem>
                         <NavItem>
                             <NavLink target="_blank" href="https://github.com/dylannirvana/neworder/issues">Register issues here</NavLink>
@@ -174,10 +188,8 @@ class App extends Component {
                             How to use
                             </DropdownToggle>
                             <DropdownMenu right>
-                                <DropdownItem>
-                                        The GO App is an Agile application that allows you to resequence sections of the product grid order using a visual tool. 
-                                
-
+                                <DropdownItem target="_blank" href="https://github.com/dylannirvana/neworder" >
+                                        The GO App is an Agile application that allows you to resequence sections of the product grid order using a visual tool.
                                 </DropdownItem>
                             </DropdownMenu>
                         </UncontrolledDropdown>

@@ -1,97 +1,42 @@
-@import url('https://fonts.googleapis.com/css?family=Libre+Baskerville|Montserrat');
+@import url("//hello.myfonts.net/count/38e26a");
 
-h1,h2,h3,h4,h5,h6 {
-  font-family: 'Libre Baskerville', serif;
+@font-face {font-family: 'HelveticaNeueLTPro-Lt';src: url('./fonts/webfonts/38E26A_0_0.eot');src: url('./fonts/webfonts/38E26A_0_0.eot?#iefix') format('embedded-opentype'),url('./fonts/webfonts/38E26A_0_0.woff2') format('woff2'),url('./fonts/webfonts/38E26A_0_0.woff') format('woff'),url('./fonts/webfonts/38E26A_0_0.ttf') format('truetype');} 
+@font-face {font-family: 'BookmanOldStyleStd';src: url('./fonts/webfonts/38E26A_1_0.eot');src: url('./fonts/webfonts/38E26A_1_0.eot?#iefix') format('embedded-opentype'),url('./fonts/webfonts/38E26A_1_0.woff2') format('woff2'),url('./fonts/webfonts/38E26A_1_0.woff') format('woff'),url('./fonts/webfonts/38E26A_1_0.ttf') format('truetype');}
+ 
+body,h1,h2,h3,h4,h5,h6,p,div {
+  font-family: 'HelveticaNeueLTPro-Lt';
+  color: #666;
 }
-
-p, div {
-  font-family: 'Montserrat', sans-serif;
-}
-
-/* .App {
-    text-align: center;
-  }
   
-  .App-logo {
-    animation: App-logo-spin infinite 20s linear;
-    height: 40vmin;
-  }
-  
-  .App-header {
-    background-color: #282c34;
-    min-height: 100vh;
-    display: flex;
-    flex-direction: column;
-    align-items: center;
-    justify-content: center;
-    font-size: calc(10px + 2vmin);
-    color: white;
-  }
-  
-  .App-link {
-    color: #61dafb;
-  }
-  
-  @keyframes App-logo-spin {
-    from {
-      transform: rotate(0deg);
-    }
-    to {
-      transform: rotate(360deg);
-    }
-  } */
-  
-  /* ALBUM */
-  
-  /* .card {
-    width: 240px;
-  } */
-   /* ================================== */
-  
-  /* 1. PACKERY IMPLEMENTATION */
-  /* * { box-sizing: border-box; } 
-  
-  body { font-family: sans-serif; } */
-  
-  /* ---- grid ---- */
-  
-  /* .grid {
-    background: #DDD;
-    max-width: 1200px;
-  } */
-  
-  /* clear fix */
-  /* .grid:after {
-    content: '';
-    display: block;
-    clear: both;
-  } */
-  
-  /* ---- .grid-item ---- */
-  
-  /* .grid-item {
-    float: left !important;
-    width: 240px !important;
-    height: 300px;
-    background: #C09;
-    border: 2px solid hsla(0, 0%, 0%, 0.5);
-  
-    display: grid !important;
-    grid-template-columns: repeat(4, 1fr);
-    grid-gap: 10px;
-  } */
-  
-.small {
+.index, .sku {
   font-size: .8rem;
-  text-align: right;
+}
+
+/* .sku {
+  font-size: .8rem;
+} */
+
+.summary {
+  max-width: 45%;
+}
+
+.designer {
+  font-family: 'BookmanOldStyleStd';
+  text-transform: uppercase; 
+  font-size: 9pt;
+  font-weight: 600;
+}
+
+.logo {
+  display: flex;
+  justify-content: center;
 }
 
   .grid-item img {
     max-width: auto;
     height: 200px;
     z-index: -1;
-    /* display: flex; */
-    /* vertical-align: center; */
+    padding-top: 24px;
     
     /* user-drag: none;  */
     user-select: none;
@@ -101,39 +46,6 @@ p, div {
     -ms-user-select: none;
   }
   
-  /* .grid-item--width2 { width: 200px; }
-  .grid-item--height2 { height: 200px; } */
-  
-  /* .grid-item:hover {
-    border-color: hsla(0, 0%, 100%, 0.5);
-    cursor: move;
-  } */
-  
-  /* .grid-item.is-dragging,
-  .grid-item.is-positioning-post-drag {
-    background: #C90;
-    z-index: 2;
-  } */
-  
-  /* .packery-drop-placeholder {
-    outline: 3px dashed hsla(0, 0%, 0%, 0.5);
-    outline-offset: -6px;
-    -webkit-transition: -webkit-transform 0.2s;
-            transition: transform 0.2s;
-  } */
-  
-  /* END */
-  
-  /* .react-draggable {
-    float: left;
-    width: 240px;
-    height: 300px;
-    background: #C09;
-    border: 2px solid hsla(0, 0%, 0%, 0.5);
-  } */
-  
-  /* .react-draggable--width2 { width: 200px; }
-  .react-draggable--height2 { height: 200px; } */
   
   .react-draggable:hover {
     border: 1px solid purple;
@@ -145,34 +57,6 @@ p, div {
     background: #C90;
     z-index: 2;
   }
-  
-  /* CSS Grid */
-  
-  /* .grid {
-    display: grid;
-    grid-template-columns: repeat(3, 20px [col-start]);
-    justify-content: center;
-  } */
-  
-  /* .grid-item {
-    display: inline !important;
-  } */
-  
-  /* .container {
-    width: 1400px;
-    background-color: blue;
-    display: flex;
-    justify-content: center;
-    align-items: flex-start;
-    height: 100%;
-  } */
-  
-  /* .react-grid-layout {
-    display: grid !important; 
-    display: inline !important;
-    grid-template-columns: repeat(3, 1fr) !important;
-    grid-gap: 4px;
-  } */
   
   .react-grid-item {
     height: 300px;
@@ -188,7 +72,14 @@ p, div {
   }
 
   .name {
-    color: purple;
     height: 24px;
     overflow: hidden;
+  }
+
+  .card-title {
+    margin-bottom: 0 !important;
+  }  
+  
+  .card-text {
+    margin-bottom: 4px !important;
   }

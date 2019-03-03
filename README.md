@@ -28,11 +28,23 @@ React Strap
 http://reactstrap.github.io/
 
 Bootstrap
-https://getbootstrap.com/
+https://getbootstrap.com/ 
 
+### Enhancements
+This is a UDD User Driven Development project. As the UX study continues with the user(s) of the application, additions will be made according to their needs:
+1. Filtering, Sorting
+2. Multiple selection
+3. Saving session profiles
+
+### Refactor and Repurpose
+New applications can be built from GO App beyond the purposes of a grid order application, by refactoring and repurposeing the code. Again, this is driven by the UX study of the users needs. Prospective apps can include ones that,
+1. Assign style tags to products
 
 ### GitHub repo for this project
 https://github.com/dylannirvana/neworder 
+
+### Register issues here
+https://github.com/dylannirvana/neworder/issues 
 
 ### App running on Heroku
 https://neworder.herokuapp.com/ 
