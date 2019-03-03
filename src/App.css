@@ -81,10 +81,17 @@ p, div {
     grid-gap: 10px;
   } */
   
+.small {
+  font-size: .8rem;
+  text-align: right;
+}
+
   .grid-item img {
-    max-width: 200px;
-    height: auto;
+    max-width: auto;
+    height: 200px;
     z-index: -1;
+    /* display: flex; */
+    /* vertical-align: center; */
     
     /* user-drag: none;  */
     user-select: none;
@@ -178,4 +185,10 @@ p, div {
 
   .note {
     color: purple;
+  }
+
+  .name {
+    color: purple;
+    height: 24px;
+    overflow: hidden;
   }

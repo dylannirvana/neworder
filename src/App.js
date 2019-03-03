@@ -29,8 +29,9 @@ class App extends Component {
     constructor(props) {
         super(props);
         this.state = {
-            data: [], // on load
+            data: [], 
             isOpen: false,
+            isVisible: false, 
         }
 
         this.toggle = this.toggle.bind(this)
@@ -38,14 +39,34 @@ class App extends Component {
         this.updateData = this.updateData.bind(this)
         this.renderData = this.renderData.bind(this)  
         this.handleClick = this.handleClick.bind(this) 
+        this.toggleVisible = this.toggleVisible.bind(this) 
     }
 
+    // TODO:
+    // 1. toggle visibility √
+    // 2. column size correx √
+    // 3. multiple column variable X
+    // 4. style
+    // 5. multiple select
+
+    // Be sure to complete documentation and formally present
+    //////////////
+
+    // Toggle open close in navbar
     toggle() {
         this.setState({
           isOpen: !this.state.isOpen,
-        });
+        })
       }
 
+    // Toggle visibility of input and output buttons
+    toggleVisible() {  //
+        this.setState({
+            isVisible: !this.state.isVisible,
+        })
+    }
+
+    // Handle change event for upload
     handleChange(event) {
         event.preventDefault()
         const inventory = event.target.files[0]
@@ -53,33 +74,40 @@ class App extends Component {
             header: true,
             complete: this.updateData
         })
-        // export button becomes visible
-       
-    } // END
 
+        // Toggle visibility of buttons
+        this.toggleVisible()
+
+    } 
+
+    // Original grid order
     updateData(results) {
         const data = results.data
         this.setState({data}) // {data:data}
     }
     
+    // Renders grid
     renderData() {
         return  this.state.data.length > 1
             ?   this.state.data.map((item,index) => (  
                     <div className="react-grid-item grid-item" key={index}>
-                        <div> {item.name} </div>
-                        <div> {item.grid_order} </div> 
-                        <img src={item.image} alt="product" />
+                        <div className="name"> {item.name} </div>
                         <div> {item.config_sku} </div>
-                        <div> {index} </div>     
+                        <img src={item.image} alt="product" />
+                        <div className="small"> {index} </div>     
+
+                       
                     </div>    
                 )) 
             : null
     } // END
 
+    // Maintain draggable layout
     onLayoutChange = (layout) => {
         this.newOrder = layout.map(li => ({...li, pos:li.y*3 + li.x}))  
         this.newOrder = _.sortBy(this.newOrder, 'pos').map(li => parseInt(li.i))
 
+        // Reordered key:value pair
         this.newOrder = this.newOrder.map((i, seqno) => ({
             config_sku: this.state.data[i].config_sku,
             grid_order: this.state.data[seqno].grid_order
@@ -88,8 +116,9 @@ class App extends Component {
        
     } // END
 
+    // Parser and save file
     handleClick = (event) => {
-
+        console.log("hey")
         // Parse
         const csv = Papa.unparse(this.newOrder) 
         console.log("csv from parser = ", csv)
@@ -98,6 +127,20 @@ class App extends Component {
         var file = new File([csv], "neworder.csv", {type: "text/plain;charset=utf-8"});
         FileSaver.saveAs(file);
     }
+
+    importButton = () => (
+        <div className="import">
+            <h4> Import CSV </h4>                      
+            <Input type="file" onChange={this.handleChange}  />
+        </div>
+    )
+
+    exportButton = () => (
+        <div className="exportButton">
+            <h4> Export CSV </h4>
+            <Button onClick={this.handleClick} color="secondary" size="sm">New Order</Button>        
+        </div>
+    )
 
     render() {
         const {data} = this.state
@@ -109,6 +152,8 @@ class App extends Component {
             i: index.toString()
         }))
 
+        const columns = 3
+
         return (
             <div>
                 <Navbar color="dark" dark expand="md">
@@ -117,26 +162,23 @@ class App extends Component {
                     <Collapse isOpen={this.state.isOpen} navbar>
                         <Nav className="ml-auto" navbar>
                         <NavItem>
-                            <NavLink href="/components/">Components</NavLink>
                         </NavItem>
                         <NavItem>
-                            <NavLink href="https://github.com/reactstrap/reactstrap">GitHub</NavLink>
+                        <NavLink target="_blank" href="https://github.com/dylannirvana/neworder/">GitHub</NavLink>
+                        </NavItem>
+                        <NavItem>
+                            <NavLink target="_blank" href="https://github.com/dylannirvana/neworder/issues">Register issues here</NavLink>
                         </NavItem>
                         <UncontrolledDropdown nav inNavbar>
                             <DropdownToggle nav caret>
-                            Options
+                            How to use
                             </DropdownToggle>
                             <DropdownMenu right>
-                            <DropdownItem>
-                                Option 1
-                            </DropdownItem>
-                            <DropdownItem>
-                                Option 2
-                            </DropdownItem>
-                            <DropdownItem divider />
-                            <DropdownItem>
-                                Reset
-                            </DropdownItem>
+                                <DropdownItem>
+                                        The GO App is an Agile application that allows you to resequence sections of the product grid order using a visual tool. 
+                                
+
+                                </DropdownItem>
                             </DropdownMenu>
                         </UncontrolledDropdown>
                         </Nav>
@@ -145,48 +187,29 @@ class App extends Component {
                 
                 <Jumbotron >
                     <Container>
-                        <div className="import">
-                            <h4> Import CSV </h4>
-                            <Input  type="file" onChange={this.handleChange}  />
-                        </div>
-
-                        <div className="exportButton">
-                            <h4> Export CSV </h4>
-                            <Button  onClick={this.handleClick} color="secondary" size="sm">Export CSV</Button>
-                        </div>
+                        { !this.state.isVisible ? this.importButton() : null }
+                        { this.state.isVisible ? this.exportButton() : null }
 
                     </Container>
                 </Jumbotron>
 
                 <Container className="album ">
-
                     <GridLayout  
                         compactType="horizontal" 
                         useCSSTransforms={true} 
-                        cols={3} 
+                        cols={columns} 
                         layout={layout}
                         onLayoutChange={this.onLayoutChange}
-                        verticalCompact={true}
+                        // verticalCompact={true}
+                        preventCollision={false}
                         isResizable={false}
-                        margin={[120, 20]} 
+                        margin={[120, 40]} 
                         rowHeight={300} 
                         className="react-grid-layout grid" 
                         width={1200} 
                     >
                         {this.renderData()}
                     </GridLayout>
-
-                    <Navbar color="light" light expand="md">
-                    <Collapse isOpen={this.state.isOpen} navbar>
-                        <Nav className="ml-auto" navbar>
-                        <NavItem>
-                            {/* <div className="note" > Export neworder CSV </div>
-                            <Button onClick={this.handleClick} color="secondary" size="sm">Export CSV</Button> */}
-                        </NavItem>
-                       
-                        </Nav>
-                    </Collapse>
-                </Navbar>
 
                 </Container>
             </div> // END
@@ -195,5 +218,4 @@ class App extends Component {
 } // END
 
 export default App
-
 
