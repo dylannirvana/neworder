@@ -9,22 +9,14 @@ body,h1,h2,h3,h4,h5,h6,p,div {
 }
   
 .index, .sku {
-  font-size: .8rem;
-}
-
-/* .sku {
-  font-size: .8rem;
-} */
-
-.summary {
-  max-width: 45%;
+  font-size: .6rem;
 }
 
 .designer {
   font-family: 'BookmanOldStyleStd';
   text-transform: uppercase; 
-  font-size: 9pt;
-  font-weight: 600;
+  font-size: 8pt;
+  font-weight: 400;
 }
 
 .logo {
@@ -32,54 +24,58 @@ body,h1,h2,h3,h4,h5,h6,p,div {
   justify-content: center;
 }
 
-  .grid-item img {
-    max-width: auto;
-    height: 200px;
-    z-index: -1;
-    padding-top: 24px;
-    
-    /* user-drag: none;  */
-    user-select: none;
-    -moz-user-select: none;
-    -webkit-user-drag: none;
-    -webkit-user-select: none;
-    -ms-user-select: none;
-  }
+.grid-item img {
+  max-width: auto;
+  height: 180px;
+  z-index: -1;
+  padding-top: 12px;
   
-  
-  .react-draggable:hover {
-    border: 1px solid purple;
-    cursor: move;
-  }
-  
-  .react-draggable.is-dragging,
-  .react-draggable.is-positioning-post-drag {
-    background: #C90;
-    z-index: 2;
-  }
-  
-  .react-grid-item {
-    height: 300px;
-    /* width: 240px; */
-    text-align: center;
-    padding: 4px;
-    background-color: #ffffff;
-    border: 1px solid black;
-  }
+  /* user-drag: none;  */
+  user-select: none;
+  -moz-user-select: none;
+  -webkit-user-drag: none;
+  -webkit-user-select: none;
+  -ms-user-select: none;
+}
 
-  .note {
-    color: purple;
-  }
+.react-draggable:hover {
+  border: 1px solid purple;
+  cursor: move;
+}
 
-  .name {
-    height: 24px;
-    overflow: hidden;
-  }
+.react-draggable.is-dragging,
+.react-draggable.is-positioning-post-drag {
+  background: #C90;
+  z-index: 2;
+}
 
-  .card-title {
-    margin-bottom: 0 !important;
-  }  
-  
-  .card-text {
-    margin-bottom: 4px !important;
-  }
+.react-grid-item {
+  height: 300px;
+  /* width: 240px; */
+  text-align: center;
+  padding: 4px;
+  background-color: #ffffff;
+  border: 1px solid black;
+}
+
+.note {
+  color: purple;
+}
+
+.name {
+  height: 16px;
+  overflow: hidden;
+}
+
+.card-title {
+  margin-bottom: 0 !important;
+  font-size: .9rem;
+}  
+
+.card-text {
+  margin-bottom: 4px !important;
+}
+
+div.card-body {
+  padding: .6rem;
+}

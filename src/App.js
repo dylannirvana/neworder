@@ -26,9 +26,9 @@ import {
     CardText,
     CardSubtitle,
 } from 'reactstrap'
-
 import '../node_modules/react-grid-layout/css/styles.css'
 import '../node_modules/react-resizable/css/styles.css'
+import 'bootstrap/dist/css/bootstrap.min.css'
 import './App.css'
 import logo from './images/logo.png'
 
@@ -40,7 +40,6 @@ class App extends Component {
             isOpen: false,
             isVisible: false, 
         }
-
         this.toggle = this.toggle.bind(this)
         this.handleChange = this.handleChange.bind(this)
         this.updateData = this.updateData.bind(this)
@@ -49,31 +48,18 @@ class App extends Component {
         this.toggleVisible = this.toggleVisible.bind(this) 
     }
 
-    // TODO:
-    // 1. toggle visibility √
-    // 2. column size correx √
-    // 3. multiple column variable X
-    // 4. style √
-    // 5. multiple select
-
-    // Be sure to complete documentation and formally present
-    //////////////
-
-    // Toggle open close in navbar
     toggle() {
         this.setState({
           isOpen: !this.state.isOpen,
         })
       }
 
-    // Toggle visibility of input and output buttons
-    toggleVisible() {  //
+    toggleVisible() {  
         this.setState({
             isVisible: !this.state.isVisible,
         })
     }
 
-    // Handle change event for upload
     handleChange(event) {
         event.preventDefault()
         const inventory = event.target.files[0]
@@ -81,59 +67,42 @@ class App extends Component {
             header: true,
             complete: this.updateData
         })
-
-        // Toggle visibility of buttons
         this.toggleVisible()
-
     } 
 
-    // Original grid order
     updateData(results) {
         const data = results.data
-        this.setState({data}) // {data:data}
+        this.setState({data}) 
     }
     
-    // Renders grid
     renderData() {
         return  this.state.data.length > 1
             ?   this.state.data.map((item,index) => (  
-
-                        <Card className="react-grid-item grid-item" key={index} >
-                            <CardImg src={item.image} top width="100%" alt="Product" />
-                            <CardBody>
-                                <CardTitle className="name"> {item.name} </CardTitle>
-                                <CardText className="designer" > {item.designer} </CardText>
-                                <CardSubtitle className="sku" > {item.config_sku} </CardSubtitle>
-                                <CardText className="index" > {index} </CardText>
-                                {/* <Button>Button</Button> */}
-                            </CardBody>
-                        </Card>
+                    <Card className="react-grid-item grid-item" key={index} >
+                        <CardImg src={item.image} top width="100%" alt="Product" />
+                        <CardBody>
+                            <CardTitle className="name"> {item.name} </CardTitle>
+                            <CardText className="designer" > {item.designer} </CardText>
+                            <CardSubtitle className="sku" > {item.config_sku} <span>{index}</span> </CardSubtitle>
+                            {/* <CardText className="index" > {index} </CardText> */}
+                        </CardBody>
+                    </Card>
                 )) 
             : null
-    } // END
+    } 
 
-    // Maintain draggable layout
     onLayoutChange = (layout) => {
-        this.newOrder = layout.map(li => ({...li, pos:li.y*3 + li.x}))  
+        this.newOrder = layout.map(li => ({...li, pos:li.y*5 + li.x}))  
         this.newOrder = _.sortBy(this.newOrder, 'pos').map(li => parseInt(li.i))
-
-        // Reordered key:value pair
         this.newOrder = this.newOrder.map((i, seqno) => ({
             config_sku: this.state.data[i].config_sku,
             grid_order: this.state.data[seqno].grid_order
           }));
-       console.log(this.newOrder)
-       
-    } // END
+       console.log(this.newOrder)      
+    } 
 
-    // Parser and save file
     handleClick = (event) => {
-        console.log("hey")
-        // Parse
         const csv = Papa.unparse(this.newOrder) 
-        console.log("csv from parser = ", csv)
-
-        // saveAs(csv)
         var file = new File([csv], "neworder.csv", {type: "text/plain;charset=utf-8"});
         FileSaver.saveAs(file);
     }
@@ -157,17 +126,18 @@ class App extends Component {
     render() {
         const {data} = this.state
         const layout = data && data.map((item, index) => ({
-            x: index % 3,
-            y: Math.floor(index / 3),
+            x: index % 5,
+            y: Math.floor(index / 5),
             w: 1,
             h: 1,
             i: index.toString()
         }))
 
-        const columns = 3
+        const columns = 5
 
         return (
-            <div>
+            <Container>
+                 {/* <div> */}
                 <Navbar color="light" light expand="md">
                     <NavbarBrand className="logo" href="/"> 
                         <img src={logo} alt="logo" />
@@ -176,9 +146,6 @@ class App extends Component {
                     <Collapse isOpen={this.state.isOpen} navbar>
                         <Nav className="ml-auto" navbar>
                         <NavItem>
-                        </NavItem>
-                        <NavItem>
-                        {/* <NavLink target="_blank" href="https://github.com/dylannirvana/neworder/">GO App</NavLink> */}
                         </NavItem>
                         <NavItem>
                             <NavLink target="_blank" href="https://github.com/dylannirvana/neworder/issues">Register issues here</NavLink>
@@ -198,36 +165,37 @@ class App extends Component {
                 </Navbar>
                 
                 <Jumbotron >
-                    <Container>
+                    {/* <Container> */}
                         { !this.state.isVisible ? this.importButton() : null }
                         { this.state.isVisible ? this.exportButton() : null }
-
-                    </Container>
+                    {/* </Container> */}
                 </Jumbotron>
 
-                <Container className="album ">
+                {/* <Container className="album "> */}
                     <GridLayout  
                         compactType="horizontal" 
                         useCSSTransforms={true} 
                         cols={columns} 
                         layout={layout}
                         onLayoutChange={this.onLayoutChange}
-                        // verticalCompact={true}
+                        verticalCompact={true}
                         preventCollision={false}
                         isResizable={false}
-                        margin={[120, 40]} 
-                        rowHeight={300} 
+                        margin={[20, 10]} 
+                        rowHeight={240} 
                         className="react-grid-layout grid" 
-                        width={1200} 
+                        width={930} 
                     >
                         {this.renderData()}
                     </GridLayout>
 
-                </Container>
-            </div> // END
+                {/* </Container> */}
+            {/* </div>  */}
+            </Container>
+           
         );
     }
-} // END
+} 
 
 export default App
 
